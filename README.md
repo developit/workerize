@@ -1,3 +1,6 @@
+### 💖 Using Webpack? You want [workerize-loader ➡️](https://github.com/developit/workerize-loader)
+
+
 <p align="center">
   <img src="https://i.imgur.com/4zpkKlB.png" width="300" height="300" alt="workerize-loader">
   <br>
@@ -5,8 +8,6 @@
 </p>
 
 # Workerize
-
-**NOTE:** If you're using Webpack, try [workerize-loader](https://github.com/developit/workerize-loader).
 
 > Moves a module into a Web Worker, automatically reflecting exported functions as asynchronous proxies.
 
