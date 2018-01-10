@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/JLAwk0S.png" width="300" height="300" alt="workerize-loader">
+  <img src="https://i.imgur.com/0sP8N6n.png" width="300" height="300" alt="workerize-loader">
   <br>
   <a href="https://www.npmjs.org/package/workerize"><img src="https://img.shields.io/npm/v/workerize.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/developit/workerize"><img src="https://travis-ci.org/developit/workerize.svg?branch=master" alt="travis"></a>
 </p>
