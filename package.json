@@ -15,6 +15,7 @@
   "author": "Jason Miller <jason@developit.ca> (http://jasonformat.com)",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^4.15.0",
     "microbundle": "^0.2.4"
   }
 }
