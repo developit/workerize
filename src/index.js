@@ -39,7 +39,7 @@ export default function workerize(code) {
 	let term = worker.terminate;
 	worker.terminate = () => {
 		URL.revokeObjectURL(url);
-		worker.terminate();
+		term();
 	};
 	worker.rpcMethods = {};
 	function setup(ctx, rpcMethods, callbacks) {
