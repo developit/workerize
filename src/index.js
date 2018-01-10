@@ -6,7 +6,7 @@
  *	@example
  *	let worker = workerize(`
  *		export function add(a, b) {
- *			// block for half a second to demonstrate asynchronicity
+ *			// block for a quarter of a second to demonstrate asynchronicity
  *			let start = Date.now();
  *			while (Date.now()-start < 250);
  *			return a + b;
@@ -39,7 +39,7 @@ export default function workerize(code) {
 	let term = worker.terminate;
 	worker.terminate = () => {
 		URL.revokeObjectURL(url);
-		worker.terminate();
+		term();
 	};
 	worker.rpcMethods = {};
 	function setup(ctx, rpcMethods, callbacks) {

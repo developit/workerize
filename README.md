@@ -1,12 +1,10 @@
-<p align="center">
-  <img src="https://i.imgur.com/JLAwk0S.png" width="300" height="300" alt="workerize-loader">
-  <br>
-  <a href="https://www.npmjs.org/package/workerize"><img src="https://img.shields.io/npm/v/workerize.svg?style=flat" alt="npm"></a> <a href="https://travis-ci.org/developit/workerize"><img src="https://travis-ci.org/developit/workerize.svg?branch=master" alt="travis"></a>
-</p>
+<h2 align="center">
+  💖 Using Webpack? You want <a href="https://github.com/developit/workerize-loader">workerize-loader ➡️</a>
+</h2>
 
-# Workerize
+<img src="https://i.imgur.com/MBlHoDp.jpg" width="1358" alt="workerize">
 
-**NOTE:** If you're using Webpack, try [workerize-loader](https://github.com/developit/workerize-loader).
+# Workerize [![npm](https://img.shields.io/npm/v/workerize.svg?style=flat)](https://www.npmjs.org/package/workerize) [![travis](https://travis-ci.org/developit/workerize.svg?branch=master)](https://travis-ci.org/developit/workerize)
 
 > Moves a module into a Web Worker, automatically reflecting exported functions as asynchronous proxies.
 
@@ -24,6 +22,8 @@ npm install --save workerize
 
 
 ### Usage
+
+Pass either a function or a string containing code.
 
 **worker.js**:
 
