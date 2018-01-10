@@ -1,10 +1,10 @@
 {
   "name": "workerize",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run a module in a Web Worker.",
   "main": "dist/workerize.js",
   "module": "src/index.js",
-  "repo": "developit/workerize",
+  "repository": "developit/workerize",
   "scripts": {
     "build": "microbundle",
     "prepublishOnly": "npm run build",
