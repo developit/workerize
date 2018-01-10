@@ -11,7 +11,11 @@
     "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "keywords": [],
+  "keywords": [
+    "worker",
+    "web workers",
+    "threads"
+  ],
   "author": "Jason Miller <jason@developit.ca> (http://jasonformat.com)",
   "license": "ISC",
   "devDependencies": {
