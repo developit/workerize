@@ -6,8 +6,6 @@
 
 # Workerize [![npm](https://img.shields.io/npm/v/workerize.svg?style=flat)](https://www.npmjs.org/package/workerize) [![travis](https://travis-ci.org/developit/workerize.svg?branch=master)](https://travis-ci.org/developit/workerize)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/developit/workerize.svg)](https://greenkeeper.io/)
-
 > Moves a module into a Web Worker, automatically reflecting exported functions as asynchronous proxies.
 
 - Bundles a tiny, purpose-built RPC implementation into your app
