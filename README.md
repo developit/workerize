@@ -46,4 +46,4 @@ let worker = workerize(`
 
 ### License
 
-[MIT License](LICENSE.md) © [Jason Miller](https://jasonformat.com)
+[MIT License](https://oss.ninja/mit/developit/) © [Jason Miller](https://jasonformat.com)
