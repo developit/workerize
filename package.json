@@ -20,6 +20,6 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.15.0",
-    "microbundle": "^0.2.4"
+    "microbundle": "^0.3.0"
   }
 }
