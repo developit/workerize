@@ -43,17 +43,6 @@ export default function workerize(code) {
 	};
 	worker.rpcMethods = {};
 	function setup(ctx, rpcMethods, callbacks) {
-		/*
-		ctx.expose = (methods, replace) => {
-			if (typeof methods==='string') {
-				rpcMethods[methods] = replace;
-			}
-			else {
-				if (replace===true) rpcMethods = {};
-				Object.assign(rpcMethods, methods);
-			}
-		};
-		*/
 		ctx.addEventListener('message', ({ data }) => {
 			if (data.type==='RPC') {
 				let id = data.id;
