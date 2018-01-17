@@ -3,14 +3,21 @@
   "version": "0.1.2",
   "description": "Run a module in a Web Worker.",
   "main": "dist/workerize.js",
-  "module": "src/index.js",
+  "module": "dist/workerize.m.js",
+  "source": "src/index.js",
   "repository": "developit/workerize",
+  "loader": "./loader.js",
   "scripts": {
     "build": "microbundle",
     "prepublishOnly": "npm run build",
     "release": "npm t && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
+  "files": [
+    "src",
+    "dist",
+    "loader.js"
+  ],
   "keywords": [
     "worker",
     "web workers",
