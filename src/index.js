@@ -45,7 +45,7 @@ export default function workerize(code, options) {
 	setup(worker, worker.rpcMethods, callbacks);
 	worker.expose = methodName => {
 		worker[i] = function() {
-			return worker.call(methodName, arguments);
+			return worker.call(methodName, [].slice.call(arguments));
 		};
 	};
 	for (i in exports) if (!(i in worker)) worker.expose(i);
