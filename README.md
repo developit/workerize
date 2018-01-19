@@ -12,7 +12,7 @@
 - If exported module methods are already async, signature is unchanged
 - Supports synchronous and asynchronous worker functions
 - Works beautifully with async/await
-- Just **900 bytes** of gzipped ES3
+- Just **800 bytes** of gzipped ES3
 
 
 ## Install
