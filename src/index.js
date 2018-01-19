@@ -17,9 +17,7 @@
  *		console.log('1 + 2 = ', await worker.add(1, 2));
  *	})();
  */
-
-
-export default function workerize(code) {
+export default function workerize(code, options) {
 	let exports = {};
 	let exportsObjName = `__xpo${Math.random().toString().substring(2)}__`;
 	if (typeof code==='function') code = `(${toCode(code)})(${exportsObjName})`;
@@ -29,7 +27,7 @@ export default function workerize(code) {
 			type: 'application/javascript'
 		}),
 		url = URL.createObjectURL(blob),
-		worker = new Worker(url),
+		worker = new Worker(url, options),
 		counter = 0,
 		callbacks = {};
 	worker.kill = signal => {
