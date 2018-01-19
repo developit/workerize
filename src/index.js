@@ -21,7 +21,7 @@
 
 export default function workerize(code) {
 	let exports = {};
-	let exportsObjName = `__EXPORTS_${Math.random().toString().substring(2)}__`;
+	let exportsObjName = `__xpo${Math.random().toString().substring(2)}__`;
 	if (typeof code==='function') code = `(${toCode(code)})(${exportsObjName})`;
 	code = toCjs(code, exportsObjName, exports);
 	code += `\n(${toCode(setup)})(self, ${exportsObjName}, {})`;
