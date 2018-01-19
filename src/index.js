@@ -41,13 +41,14 @@ export default function workerize(code, options) {
 		callbacks[id] = [resolve, reject];
 		worker.postMessage({ type: 'RPC', id, method, params });
 	});
-	for (let i in exports) {
-		if (exports.hasOwnProperty(i) && !(i in worker)) {
-			worker[i] = (...args) => worker.call(i, args);
-		}
-	}
 	worker.rpcMethods = {};
 	setup(worker, worker.rpcMethods, callbacks);
+	worker.expose = methodName => {
+		worker[i] = function() {
+			return worker.call(methodName, arguments);
+		};
+	};
+	for (i in exports) if (!(i in worker)) worker.expose(i);
 	return worker;
 }
 
