@@ -28,13 +28,13 @@ export default function workerize(code, options) {
 		}),
 		url = URL.createObjectURL(blob),
 		worker = new Worker(url, options),
+		term = worker.terminate,
 		counter = 0,
 		callbacks = {};
 	worker.kill = signal => {
 		worker.postMessage({ type: 'KILL', signal });
 		setTimeout(worker.terminate);
 	};
-	let term = worker.terminate;
 	worker.terminate = () => {
 		URL.revokeObjectURL(url);
 		term();
