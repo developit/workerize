@@ -20,13 +20,12 @@
 export default function workerize(code, options) {
 	let exports = {};
 	let exportsObjName = `__xpo${Math.random().toString().substring(2)}__`;
-	if (typeof code==='function') code = `(${toCode(code)})(${exportsObjName})`;
-	code = toCjs(code, exportsObjName, exports);
-	code += `\n(${toCode(setup)})(self, ${exportsObjName}, {})`;
 	let blob = new Blob([code], {
 			type: 'application/javascript'
 		}),
 		url = URL.createObjectURL(blob),
+	if (typeof code==='function') code = `(${Function.prototype.toString.call(code)})(${exportsObjName})`;
+	code = toCjs(code, exportsObjName, exports) + `\n(${Function.prototype.toString.call(setup)})(self,${exportsObjName},{})`;
 		worker = new Worker(url, options),
 		term = worker.terminate,
 		counter = 0,
@@ -54,8 +53,6 @@ export default function workerize(code, options) {
 	return worker;
 }
 
-function toCode(func) {
-	return Function.prototype.toString.call(func);
 function setup(ctx, rpcMethods, callbacks) {
 	ctx.addEventListener('message', ({ data }) => {
 		let id = data.id;
@@ -83,15 +80,13 @@ function setup(ctx, rpcMethods, callbacks) {
 }
 
 function toCjs(code, exportsObjName, exports) {
-	exportsObjName = exportsObjName || 'exports';
-	exports = exports || {};
 	code = code.replace(/^(\s*)export\s+default\s+/m, (s, before) => {
 		exports.default = true;
-		return `${before}${exportsObjName}.default = `;
+		return `${before}${exportsObjName}.default=`;
 	});
 	code = code.replace(/^(\s*)export\s+(function|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/m, (s, before, type, ws, name) => {
 		exports[name] = true;
-		return `${before}${exportsObjName}.${name} = ${type}${ws}${name}`;
+		return `${before}${exportsObjName}.${name}=${type}${ws}${name}`;
 	});
-	return `var ${exportsObjName} = {};\n${code}\n${exportsObjName};`;
+	return `var ${exportsObjName}={};\n${code}\n${exportsObjName};`;
 }
