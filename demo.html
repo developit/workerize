@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Workerize Demo</title>
+	</head>
+	<body>
+		<script type="module">
+			import workerize from './dist/workerize.m.js';
+
+			const worker = workerize(`
+				export function get(url) {
+					return fetch(location.origin+'/'+url).then(asJson);
+				}
+				function asJson(res) {
+					return res.json();
+				}
+			`, { type: 'module' });
+			
+			worker.get('package.json').then( pkg => {
+				console.log('Got package name: ', pkg.name);
+			});
+		</script>
+	</body>
+</html>
