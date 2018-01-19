@@ -37,41 +37,11 @@ export default function workerize(code, options) {
 	};
 	worker.terminate = () => {
 		URL.revokeObjectURL(url);
-		term();
+		term.call(this);
 	};
-	worker.rpcMethods = {};
-	function setup(ctx, rpcMethods, callbacks) {
-		ctx.addEventListener('message', ({ data }) => {
-			if (data.type==='RPC') {
-				let id = data.id;
-				if (id!=null) {
-					if (data.method) {
-						let method = rpcMethods[data.method];
-						if (method==null) {
-							ctx.postMessage({ type: 'RPC', id, error: 'NO_SUCH_METHOD' });
-						}
-						else {
-							Promise.resolve()
-								.then( () => method.apply(null, data.params) )
-								.then( result => { ctx.postMessage({ type: 'RPC', id, result }); })
-								.catch( error => { ctx.postMessage({ type: 'RPC', id, error }); });
-						}
-					}
-					else {
-						let callback = callbacks[id];
-						if (callback==null) throw Error(`Unknown callback ${id}`);
-						delete callbacks[id];
-						if (data.error) callback.reject(Error(data.error));
-						else callback.resolve(data.result);
-					}
-				}
-			}
-		});
-	}
-	setup(worker, worker.rpcMethods, callbacks);
 	worker.call = (method, params) => new Promise( (resolve, reject) => {
 		let id = `rpc${++counter}`;
-		callbacks[id] = { method, resolve, reject };
+		callbacks[id] = [resolve, reject];
 		worker.postMessage({ type: 'RPC', id, method, params });
 	});
 	for (let i in exports) {
@@ -79,11 +49,37 @@ export default function workerize(code, options) {
 			worker[i] = (...args) => worker.call(i, args);
 		}
 	}
+	worker.rpcMethods = {};
+	setup(worker, worker.rpcMethods, callbacks);
 	return worker;
 }
 
 function toCode(func) {
 	return Function.prototype.toString.call(func);
+function setup(ctx, rpcMethods, callbacks) {
+	ctx.addEventListener('message', ({ data }) => {
+		let id = data.id;
+		if (data.type!=='RPC' || id==null) return;
+		if (data.method) {
+			let method = rpcMethods[data.method];
+			if (method==null) {
+				ctx.postMessage({ type: 'RPC', id, error: 'NO_SUCH_METHOD' });
+			}
+			else {
+				Promise.resolve()
+					.then( () => method.apply(null, data.params) )
+					.then( result => { ctx.postMessage({ type: 'RPC', id, result }); })
+					.catch( error => { ctx.postMessage({ type: 'RPC', id, error }); });
+			}
+		}
+		else {
+			let callback = callbacks[id];
+			if (callback==null) throw Error(`Unknown callback ${id}`);
+			delete callbacks[id];
+			if (data.error) callback[1](Error(data.error));
+			else callback[0](data.result);
+		}
+	});
 }
 
 function toCjs(code, exportsObjName, exports) {
