@@ -20,16 +20,14 @@
 export default function workerize(code, options) {
 	let exports = {};
 	let exportsObjName = `__xpo${Math.random().toString().substring(2)}__`;
-	let blob = new Blob([code], {
-			type: 'application/javascript'
-		}),
-		url = URL.createObjectURL(blob),
 	if (typeof code==='function') code = `(${Function.prototype.toString.call(code)})(${exportsObjName})`;
 	code = toCjs(code, exportsObjName, exports) + `\n(${Function.prototype.toString.call(setup)})(self,${exportsObjName},{})`;
+	let url = URL.createObjectURL(new Blob([code])),
 		worker = new Worker(url, options),
 		term = worker.terminate,
+		callbacks = {},
 		counter = 0,
-		callbacks = {};
+		i;
 	worker.kill = signal => {
 		worker.postMessage({ type: 'KILL', signal });
 		setTimeout(worker.terminate);
