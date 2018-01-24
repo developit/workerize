@@ -1,6 +1,6 @@
 {
   "name": "workerize",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Run a module in a Web Worker.",
   "main": "dist/workerize.js",
   "module": "dist/workerize.m.js",
