@@ -83,7 +83,7 @@ function toCjs(code, exportsObjName, exports) {
 		exports.default = true;
 		return `${before}${exportsObjName}.default=`;
 	});
-	code = code.replace(/^(\s*)export\s+(function|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/m, (s, before, type, ws, name) => {
+	code = code.replace(/^(\s*)export\s+(function|const|let|var)(\s+)([a-zA-Z$_][a-zA-Z0-9$_]*)/mg, (s, before, type, ws, name) => {
 		exports[name] = true;
 		return `${before}${exportsObjName}.${name}=${type}${ws}${name}`;
 	});
