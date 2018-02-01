@@ -65,7 +65,7 @@ function setup(ctx, rpcMethods, callbacks) {
 				Promise.resolve()
 					.then( () => method.apply(null, data.params) )
 					.then( result => { ctx.postMessage({ type: 'RPC', id, result }); })
-					.catch( error => { ctx.postMessage({ type: 'RPC', id, error }); });
+					.catch( err => { ctx.postMessage({ type: 'RPC', id, error: ''+err }); });
 			}
 		}
 		else {
