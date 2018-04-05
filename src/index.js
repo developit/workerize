@@ -44,7 +44,7 @@ export default function workerize(code, options) {
 	worker.rpcMethods = {};
 	setup(worker, worker.rpcMethods, callbacks);
 	worker.expose = methodName => {
-		worker[i] = function() {
+		worker[methodName] = function() {
 			return worker.call(methodName, [].slice.call(arguments));
 		};
 	};
