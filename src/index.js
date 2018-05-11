@@ -34,7 +34,7 @@ export default function workerize(code, options) {
 	};
 	worker.terminate = () => {
 		URL.revokeObjectURL(url);
-		term.call(this);
+		term.call(worker);
 	};
 	worker.call = (method, params) => new Promise( (resolve, reject) => {
 		let id = `rpc${++counter}`;
