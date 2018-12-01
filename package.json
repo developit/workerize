@@ -35,6 +35,6 @@
   "devDependencies": {
     "eslint": "^4.16.0",
     "eslint-config-developit": "^1.1.1",
-    "microbundle": "^0.4.3"
+    "microbundle": "^0.8.1"
   }
 }
