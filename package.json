@@ -33,7 +33,7 @@
   "author": "Jason Miller <jason@developit.ca> (http://jasonformat.com)",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.16.0",
+    "eslint": "^5.14.0",
     "eslint-config-developit": "^1.1.1",
     "microbundle": "^0.4.3"
   }
