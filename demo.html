@@ -15,7 +15,7 @@
 					return res.json();
 				}
 			`, { type: 'module' });
-			
+
 			worker.get('package.json').then( pkg => {
 				console.log('Got package name: ', pkg.name);
 			});

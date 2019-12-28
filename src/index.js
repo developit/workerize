@@ -22,7 +22,7 @@ export default function workerize(code, options) {
 	let exportsObjName = `__xpo${Math.random().toString().substring(2)}__`;
 	if (typeof code==='function') code = `(${Function.prototype.toString.call(code)})(${exportsObjName})`;
 	code = toCjs(code, exportsObjName, exports) + `\n(${Function.prototype.toString.call(setup)})(self,${exportsObjName},{})`;
-	let url = URL.createObjectURL(new Blob([code])),
+	let url = URL.createObjectURL(new Blob([code],{ type: 'text/javascript' })),
 		worker = new Worker(url, options),
 		term = worker.terminate,
 		callbacks = {},
